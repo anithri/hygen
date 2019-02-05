@@ -12,6 +12,10 @@ const resolve = attributes => {
     const shell = require('./shell')
     ops.push(shell)
   }
+  if (attributes.npm_packages || attributes.yarn_packages || attributes.ruby_packages) {
+    const packages = require('./packages')
+    ops.push(packages)
+  }
   return ops
 }
 module.exports = resolve
