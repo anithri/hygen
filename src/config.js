@@ -1,24 +1,13 @@
 // @flow
 import importedPath from 'path'
 import type { ResolverIO } from './types'
-// inline fp methods due to perf
-const uniq = arr => arr.filter((elem, pos, a) => a.indexOf(elem) === pos)
-const reversePathsToWalk = ({ folder, path }) => {
-  const resolved = path.resolve(folder)
-  const parts = resolved.split(path.sep)
-  const results = parts.map((n, idx, arr) =>
-    arr.slice(0, idx + 1).join(path.sep),
-  )
-  results[0] = results[0] || '/'
-  return results.reverse()
-}
+import { walkDirUp } from './walkers'
 
-const configLookup = (file: string, folder: string, path: any = importedPath) =>
-  uniq(reversePathsToWalk({ folder, path }).map(p => path.join(p, file)))
+// inline fp methods due to perf
+// const uniq = arr => arr.filter((elem, pos, a) => a.indexOf(elem) === pos)
 
 class ConfigResolver {
   configFile: string
-
   io: ResolverIO
 
   constructor(configFile: string, io: ResolverIO) {
@@ -26,16 +15,32 @@ class ConfigResolver {
     this.io = io
   }
 
-  async resolve(from: string) {
-    const configCandidates = configLookup(this.configFile, from)
-    const { exists, load, none } = this.io
-    for (const candidate of configCandidates) {
-      if (await exists(candidate)) {
-        return await load(candidate)
-      }
-    }
-    return await none(from)
+  async resolve(from: string): ResolverIO {
+    const { exists, load, none, path = importedPath } = this.io
+
+    const configCandidates = walkDirUp({
+      startAt: from,
+      withFile: this.configFile,
+      path,
+    }).map(
+      candidate =>
+        new Promise((resolve, reject) => {
+          exists(candidate) ? resolve(candidate) : resolve(false)
+        }),
+    )
+
+    const config = await Promise.all(configCandidates)
+      .then(arr => console.log(arr) || arr)
+      .then(arr => arr.filter(e => e))
+      .then(
+        arr =>
+          new Promise(resolve => {
+            load(arr[0]).then(config => resolve(config))
+          }),
+      )
+
+    return config || {}
   }
 }
 
-export { configLookup, ConfigResolver, reversePathsToWalk }
+export { ConfigResolver }

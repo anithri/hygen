@@ -6,10 +6,11 @@ import { ConfigResolver } from './config'
 
 const fs = require('fs-extra')
 const configResolver = new ConfigResolver('.hygen.js', {
-  exists: fs.exists,
+  exists: f => new Promise(resolve => resolve(fs.exists(f))),
   // $FlowFixMe
   load: f => Promise.resolve(require(f)),
   none: f => ({}),
+  path,
 })
 module.exports = async (config: RunnerConfig): Promise<RunnerConfig> => {
   const { cwd, templates } = config

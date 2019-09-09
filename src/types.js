@@ -42,3 +42,7 @@ export type RunnerResult = {
     availableActions: Array<string>
   }
 }
+
+export type WalkDirUpParams = {
+  startDir#
+}
