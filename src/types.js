@@ -25,6 +25,11 @@ export type RunnerConfig = {
   createPrompter: () => Prompter
 }
 
+
+export type Hooks = {
+  postConfig: (config: Object) => Object,
+}
+
 export type ResolverIO = {
   exists: string => Promise<boolean>,
   load: string => Promise<Object>,

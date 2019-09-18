@@ -15,7 +15,6 @@ describe('resolver', () => {
       load,
     })
     const config = await resolver.resolve('/foo/bar')
-
     expect(config).toEqual({ param: 1 })
   })
 

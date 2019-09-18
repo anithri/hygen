@@ -1,15 +1,16 @@
 // @flow
 import type { RunnerResult, RunnerConfig } from './types'
-const defaultConfig = require('./defaultConfig')
+
 const engine = require('./engine')
-const resolveConfig = require('./resolvers')
+const resolve = require('./config-resolver')
 const { printHelp, availableActions } = require('./help')
 
-const hygen = async (argv: Array<string>): Promise<RunnerResult> => {
-  const resolvedConfig = await resolveConfig(defaultConfig)
-
+const runner = async (
+  argv: Array<string>,
+  config: RunnerConfig
+): Promise<RunnerResult> => {
+  const resolvedConfig = await resolve(config)
   const { templates, logger } = resolvedConfig
-
   try {
     const actions = await engine(argv, resolvedConfig)
     return { success: true, actions }
@@ -27,9 +28,5 @@ const hygen = async (argv: Array<string>): Promise<RunnerResult> => {
 }
 
 module.exports = {
-  hygen,
-  engine,
-  resolve,
-  printHelp,
-  availableActions,
+  runner
 }

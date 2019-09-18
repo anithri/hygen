@@ -30,12 +30,11 @@ class ConfigResolver {
     )
 
     const config = await Promise.all(configCandidates)
-      .then(arr => console.log(arr) || arr)
       .then(arr => arr.filter(e => e))
       .then(
         arr =>
           new Promise(resolve => {
-            load(arr[0]).then(config => resolve(config))
+            load(arr[0]).then(fileConfig => resolve(fileConfig))
           }),
       )
 
