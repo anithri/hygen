@@ -20,14 +20,39 @@ export type RunnerConfig = {
   templates: string,
   cwd: string,
   logger: Logger,
-  debug: boolean,
   helpers: Object,
-  createPrompter: () => Prompter
+  createPrompter: () => Prompter,
+  hooks: ConfigHooks,
+
 }
 
+export type HygenVars = {
+  config: RunnerConfig,
+  params: Object,
+  generator: Generator
+}
+
+export type HygenHook = (hygenVars: HygenVars) => HygenVars
+
+export type Generator = {
+  generator: string,
+  action: string,
+  subaction: string,
+  path: string,
+  paramHooks: Array<HygenHook>,
+  templates: Array<string>
+}
 
 export type Hooks = {
-  postConfig: (config: Object) => Object,
+  postConfig: Array<HygenHook>,
+  preGenerator: Array<HygenHook>,
+  postGenerator: Array<HygenHook>,
+  preParams: Array<HygenHook>,
+  postParams: Array<HygenHook>,
+  preTemplates: Array<HygenHook>,
+  postTemplates: Array<HygenHook>,
+  preRender: Array<HygenHook>,
+  postRender: Array<HygenHook>,
 }
 
 export type ResolverIO = {

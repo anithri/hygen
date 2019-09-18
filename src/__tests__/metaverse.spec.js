@@ -10,7 +10,7 @@ const dirCompare = require('dir-compare')
 const opts = { compareContent: true }
 const fs = require('fs-extra')
 const enquirer = require('enquirer')
-const { runner } = require('../index')
+const { hygen } = require('../index')
 const Logger = require('../logger')
 
 const logger = new Logger(console.log)
@@ -57,7 +57,7 @@ const metaverse = (folder, cmds, promptResponse = null) =>
           enquirer.prompt = () => Promise.resolve(promptResponse)
         }
       }
-      const res = await runner(cmd, config)
+      const res = await hygen(cmd, config)
       res.actions.forEach(a => {
         a.timing = -1
         a.subject = a.subject.replace(/.*hygen\/src/, '')
