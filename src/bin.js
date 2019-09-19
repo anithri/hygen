@@ -1,18 +1,14 @@
 #!/usr/bin/env node
 
-const { runner } = require('./index')
-const Logger = require('./logger')
-const path = require('path')
+const { hygen } = require('./index')
+const {mkLogger} = require('./logger')
 
-const defaultTemplates = path.join(__dirname, '../src/templates')
-runner(process.argv.slice(2), {
-  templates: defaultTemplates,
-  cwd: process.cwd(),
-  logger: new Logger(console.log.bind(console)),
-  debug: !!process.env.DEBUG,
-  exec: (action, body) => {
-    const opts = body && body.length > 0 ? { input: body } : {}
-    return require('execa').shell(action, opts)
+await hygen({
+  environment: {
+    argv: process.argv.slice(2),
+    cwd: process.cwd(),
+    templatesDir: process.env.HYGEN_TMPLS || '_templates',
+    configFile: process.env.HYGEN_CONFIG || '.hygen.js'
   },
-  createPrompter: () => require('enquirer')
+  logger: mkLogger(),
 })

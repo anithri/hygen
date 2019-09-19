@@ -1,35 +1,39 @@
 // @flow
-import type { RunnerResult, RunnerConfig } from './types'
+import type { HygenVars, Resolver, ChainedVars } from './types'
+import { mkDefaultConfig } from './defaultConfig'
 
-const engine = require('./engine')
-const resolve = require('./config-resolver')
-const { printHelp, availableActions } = require('./help')
-const runner = async (
-  argv: Array<string>,
-  config: RunnerConfig
-): Promise<RunnerResult> => {
-  const resolvedConfig = await resolve(config)
-  const { templates, logger } = resolvedConfig
-  try {
-    const actions = await engine(argv, resolvedConfig)
-    return { success: true, actions }
-  } catch (err) {
-    logger.log(err.toString())
-    if (config.debug) {
-      logger.log('details -----------')
-      logger.log(err.stack)
-      logger.log('-------------------')
-    }
-    printHelp(templates, logger)
-    return { success: false, actions: [] }
-    // process.exit(1)
-  }
+const masterResolvers: Array<Resolver> = [
+  require('./resolvers/config'),
+  require('./resolvers/module'),
+  require('./resolvers/yargs'),
+  require('./resolvers/generator'),
+  require('./resolvers/params'),
+  require('./resolvers/templates'),
+  require('./resolvers/directives'),
+  require('./resolvers/render'),
+]
+
+const chainPromise = async (firstLink: Promise<HygenVars>, resolvers: Array<Resolver>): Promise<void> => {
+  return resolvers.reduce(
+    async (chain: Promise<HygenVars>, resolver: Resolver): Promise<HygenVars> => {
+      return chain.then(resolver.resolve)
+    },
+    firstLink,
+  )
 }
 
-module.exports = {
-  runner,
+const hygen = async (config: HygenVars): Promise<void> =>
+  chainPromise(mkDefaultConfig(config), masterResolvers)
+    .catch(err => {
+      config.logger.error(err.toString())
+      config.logger.debug('======== details ========')
+      config.logger.debug(err.stack)
+      config.logger.debug('=========================')
+    })
+
+resolver.exports = {
+  hygen,
   engine,
-  resolve,
   printHelp,
-  availableActions
+  availableActions,
 }
