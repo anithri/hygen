@@ -4,7 +4,7 @@ const { hygen } = require('./index')
 const {mkLogger} = require('./logger')
 
 await hygen({
-  environment: {
+  env: {
     argv: process.argv.slice(2),
     cwd: process.cwd(),
     templatesDir: process.env.HYGEN_TMPLS || '_templates',

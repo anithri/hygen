@@ -13,7 +13,11 @@ const reversePathsToWalk = ({ folder, path }) => {
   return results.reverse()
 }
 
-const configLookup = (file: string, folder: string, path: any = importedPath) =>
+const configLookup = (
+  file: string,
+  folder: string,
+  path: any = importedPath,
+): Array<string> =>
   uniq(reversePathsToWalk({ folder, path }).map(p => path.join(p, file)))
 
 class ConfigResolver {

@@ -7,6 +7,7 @@ export type Logger = {
   log: (msg: string) => void,
   colorful: (msg: string) => void,
 }
+
 export type Prompter = {
   prompt: any => Promise<any>,
 }
@@ -17,7 +18,6 @@ export type RenderedAction = {
   body: string,
 }
 
-
 export type EnvironmentConfig = {
   cwd: string,
   argv: Array<string>,
@@ -25,15 +25,17 @@ export type EnvironmentConfig = {
   configFile: string,
 }
 
-
 export type IgnoredConfig = {
   generators: Array<string>,
   actions: Array<string>,
   files: Array<string>,
   patterns: Array<RegExp>,
 }
+
 export type UnstructuredConfig = { [string]: any }
+
 export type HookConfig = { [string]: Array<Hook> }
+
 export type GeneratorConfig = {
   name: string,
   action: string,
@@ -51,7 +53,7 @@ export type RunnerConfig = {
   createPrompter: () => Prompter,
 }
 
-export type HygenVars = {
+export type HygenConfig = {
   config: RunnerConfig,
   env: EnvironmentConfig,
   generator: GeneratorConfig,
@@ -61,13 +63,14 @@ export type HygenVars = {
   tools: UnstructuredConfig,
 }
 
-export type Hook = () => Promise<HygenVars>
+export type Hook = () => Promise<HygenConfig>
 
-export type ChainedVars = Promise<HygenVars>
+export type ChainedVars = Promise<HygenConfig>
 
 export type Resolver = {
   name: string,
-  resolve: () => HygenVars,
+  resolve: () => HygenConfig,
+  hooks: Array<string>,
 }
 
 export type ResolverIO = {

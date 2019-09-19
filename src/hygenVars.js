@@ -1,6 +1,6 @@
 // @flow
 
-import type { HygenVars } from 'src/types'
+import type { HygenConfig, HygenVars, Resolver } from 'src/types'
 
 const coerceArray = (orig?: any): Array<any> => {
   if (!orig) return []
@@ -17,6 +17,21 @@ const mergeArrays = (orig: Object = {}, added: Object = {}): Object =>
     {},
   )
 
+const chainPromise = async (
+  firstLink: Promise<HygenConfig>,
+  resolvers: Array<Resolver>,
+): Promise<HygenConfig> => {
+  return resolvers.reduce(
+    async (
+      chain: Promise<HygenConfig>,
+      resolver: Resolver,
+    ): Promise<HygenConfig> => {
+      return chain.then(resolver.resolve)
+    },
+    firstLink,
+  )
+}
+
 const mergeVars = (orig: HygenVars, added: HygenVars): HygenVars => {}
 
-module.exports = { coerceArray, mergeArrays, mergeVars }
+module.exports = { coerceArray, mergeArrays, mergeVars, chainPromise }

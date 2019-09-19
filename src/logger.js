@@ -15,7 +15,7 @@ const CHALK_MAPPING = {
 }
 
 const LOG_LEVELS = ['trace', 'debug', 'info', 'warn', 'error', 'silent']
-const LEVEL_EQUIVILENTS = {
+const LEVEL_EQUIVALENTS = {
   err: 4,
   ok: 2,
 }
@@ -42,7 +42,7 @@ class Logger {
 
   levelFor = level => {
     if (LOG_LEVELS.indexOf(level) >= 0) return LOG_LEVELS.indexOf(level)
-    return LEVEL_EQUIVILENTS[level] || 2
+    return LEVEL_EQUIVALENTS[level] || 2
   }
 
   logLevelFrom = params => {
