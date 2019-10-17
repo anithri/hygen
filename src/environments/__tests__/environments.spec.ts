@@ -1,5 +1,5 @@
-import { environments } from '../environments/env'
-
+import { environments } from '../index'
+console.log(environments)
 describe('environments = {linux: {...}}', () => {
   it('should be an object with a linux key', () => {
     expect(environments).toContainKeys(['linux', 'defaults'])

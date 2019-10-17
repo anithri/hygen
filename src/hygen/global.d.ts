@@ -1,10 +1,14 @@
 import 'jest-extended'
-import { StringArrayCollapse, StringManipulation } from './utility'
+import {
+  StringArrayCollapse,
+  StringCollapseSpread,
+  StringManipulation,
+} from './utility'
 import { FormatInputPathObject, ParsedPath } from 'path'
 
 export interface Path {
   normalize: StringManipulation
-  join: StringArrayCollapse
+  join: StringCollapseSpread
   resolve: StringArrayCollapse
   isAbsolute: (path: string) => boolean
   relative: (from: string, to: string) => string

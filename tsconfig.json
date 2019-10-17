@@ -47,17 +47,6 @@
     // "typeRoots": [],                       /* List of folders to include type definitions from. */
     "types": [
       /* Type declaration files to be included in compilation. */
-      "chalk",
-      "yargs",
-      "yargs-parser",
-      "path",
-      "node",
-      "node/path",
-      "change-case",
-      "enquirer",
-      "front-matter",
-      "jest",
-      "inflection"
     ],
 
     "allowSyntheticDefaultImports": true /* Allow default imports from modules with no default export. This does not affect code emit, just typechecking. */,

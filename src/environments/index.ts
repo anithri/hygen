@@ -1,4 +1,4 @@
-import { EnvConfig, EnvironmentConfig } from '../hygen/env'
+import { EnvironmentConfig } from '../hygen'
 import { defaults } from './defaults'
 import { linux } from './linux'
 

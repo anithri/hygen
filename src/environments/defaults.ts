@@ -1,4 +1,4 @@
-import { EnvConfig ,EnvironmentConfig } from 'hygen/env'
+import { EnvConfig } from 'hygen'
 /* The environment contains all of the details of the running environment
 *  including current directory, the default and environment specific paths
 *  and io functions */

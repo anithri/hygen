@@ -5,7 +5,10 @@ export interface EnvironmentConfig {
 }
 
 export interface IOConfig {
-  path: Path
+  path?: Path
+}
+export interface IOContainer {
+  io: IOConfig
 }
 
 export interface EnvConfig {
@@ -13,5 +16,5 @@ export interface EnvConfig {
   configPaths: Array<string>
   templatePaths: Array<string>
   hygenIgnorePaths: Array<string>
-  io: IOConfig
+  io?: IOConfig
 }
