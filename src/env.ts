@@ -1,17 +1,17 @@
-import { EnvironmentConfig } from './hygen/env'
+import { EnvConfig ,EnvironmentConfig } from './hygen/env'
 
-const defaults = {
+const defaults: EnvConfig = {
   cwd: process.cwd(),
   configPaths: [],
   templatePaths: ['_templates'],
   hygenIgnorePaths: ['.hygenignore'],
 }
 
-const environments: EnvironmentConfig = {
+export const environments: EnvironmentConfig = {
+  defaults,
   linux: {
     ...defaults
   },
   // win32: {}
 }
 
-export default environments

@@ -1,5 +1,5 @@
 #!/usr/bin/env node
 import { cli } from './cli'
-import env from './env'
+import environments from './env'
 
-cli(env.linux)
+cli(environments.linux)
