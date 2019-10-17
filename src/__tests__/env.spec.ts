@@ -1,4 +1,4 @@
-import { environments } from '../env'
+import { environments } from '../environments/env'
 
 describe('environments = {linux: {...}}', () => {
   it('should be an object with a linux key', () => {
