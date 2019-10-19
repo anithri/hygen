@@ -6,7 +6,9 @@ const path = require('path')
  *  and io functions */
 
 export const linux: CliConfig = {
-  env: {},
+  env: {
+    argv:  process.argv
+  },
   io: {
     path,
     exec: (action, body) => {

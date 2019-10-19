@@ -11,9 +11,10 @@ export interface IOContainer {
 
 export interface EnvironmentConfig {
   cwd: string
-  configPaths: Array<string>
-  templatePaths: Array<string>
-  hygenIgnorePaths: Array<string>
+  argv: Array<string>
+  configPaths?: Array<string>
+  templatePaths?: Array<string>
+  hygenIgnorePaths?: Array<string>
 }
 
 export interface CliConfig {
