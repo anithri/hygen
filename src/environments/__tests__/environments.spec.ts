@@ -1,5 +1,5 @@
 import { environments } from '../index'
-console.log(environments)
+
 describe('environments = {linux: {...}}', () => {
   it('should be an object with a linux key', () => {
     expect(environments).toContainKeys(['linux', 'defaults'])
@@ -8,12 +8,13 @@ describe('environments = {linux: {...}}', () => {
   describe('defaults', () => {
     const defaults = environments.defaults
     it('should have required keys', () => {
-      expect(defaults).toContainKeys([
-        'cwd',
-        'configPaths',
-        'templatePaths',
-        'hygenIgnorePaths',
-      ])
+      expect(defaults).toContainKeys(['env', 'io'])
+    })
+  })
+  describe('linux', () => {
+    const linux = environments.linux
+    it('should have required keys', () => {
+      expect(linux).toContainKeys(['env', 'io'])
     })
   })
 })

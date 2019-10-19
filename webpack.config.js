@@ -6,9 +6,7 @@ const env = process.env.NODE_ENV
 const config = {
   entry: './src/bin.js',
   target: 'node', // INIT-FIXME: set this for node environments, or leave out for web.
-  externals: {
-    lodash: true
-  },
+  // externals: { lodash: true },
   module: {
     loaders: [
       { test: /\.js$/, loader: 'babel-loader', exclude: /node_modules/ }

@@ -1,6 +1,7 @@
-import { EnvConfig } from './hygen/env'
+import { CliConfig } from './hygen'
 
-export const cli = (env: EnvConfig): void => {
-  console.log('cli','env', env)
-
+export const cli = (config: CliConfig): void => {
+  console.log('cli',config)
+  // gets ambient environment data
+  // gets os specific functions
 }
