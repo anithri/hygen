@@ -1,11 +1,11 @@
-import { CliConfig, CliPartials, EnvironmentConfig } from '../hygen'
+import { CliConfig, CliPartial } from '../hygen'
 import { defaults } from './defaults'
 import { linux } from './linux'
 
 /* The environment contains all of the details of the running environment
  *  including current directory, the default and environment specific paths
  *  and io functions */
-export const environments: CliPartials = {
+export const environments: {[s: string]: CliPartial} = {
   defaults,
   linux,
   // win32: {}
@@ -19,5 +19,5 @@ export const environmentFor = (name: string): CliConfig => {
   return {
     ...environments.defaults,
     ...environments[name]
-  }
+  } as CliConfig
 }
