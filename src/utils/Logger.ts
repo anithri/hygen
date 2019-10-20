@@ -32,22 +32,20 @@ export class Logger {
     this.setLevelFrom(yargs)
   }
 
-  logThis = (entry: LogMap): LogMessage => {
-    return (...msgs) => {
-      if (entry.level > this.logLevel) return
-      this.log(entry.formatter(msgs))
-    }
+  logThis = (entry: LogMap, msgs: Array<any>): void => {
+    if (entry.level > this.logLevel) return
+    this.log(entry.formatter(msgs))
   }
   // TODO - find correct typescript to do this dynamically or via proxy
-  trace = this.logThis(this.mappings.trace)
-  debug = this.logThis(this.mappings.debug)
-  info = this.logThis(this.mappings.info)
-  warn = this.logThis(this.mappings.warn)
-  error = this.logThis(this.mappings.error)
-  ok = this.logThis(this.mappings.ok)
-  notice = this.logThis(this.mappings.notice)
-  verbose = this.logThis(this.mappings.verbose)
-
+  trace: LogMessage = (...msg) => this.logThis(this.mappings.trace, msg)
+  debug: LogMessage = (...msg) => this.logThis(this.mappings.debug, msg)
+  info: LogMessage = (...msg) => this.logThis(this.mappings.info, msg)
+  warn: LogMessage = (...msg) => this.logThis(this.mappings.warn, msg)
+  error: LogMessage = (...msg) => this.logThis(this.mappings.error, msg)
+  ok: LogMessage = (...msg) => this.logThis(this.mappings.ok, msg)
+  notice: LogMessage = (...msg) => this.logThis(this.mappings.notice, msg)
+  verbose: LogMessage = (...msg) => this.logThis(this.mappings.verbose, msg)
+  silent: LogMessage = (...msg) => {}
   logLevelFrom = (yargv: LogYargs): number => {
     if (yargv.logLevel) return yargv.logLevel
     if (yargv.silent) return 5
@@ -61,4 +59,5 @@ export class Logger {
   setLevelFrom(yargs: LogYargs): void {
     this.logLevel = this.logLevelFrom(yargs)
   }
+
 }

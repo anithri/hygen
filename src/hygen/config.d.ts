@@ -1,5 +1,5 @@
 import { EnvironmentConfig, IOConfig } from './environments'
-import { Logger } from './utility'
+import { Logger } from '../utils/Logger'
 
 export interface HygenConfig {
   io: IOConfig
