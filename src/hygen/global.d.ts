@@ -5,7 +5,6 @@ import {
   StringManipulation,
 } from './utility'
 import { FormatInputPathObject, ParsedPath } from 'path'
-
 export interface Path {
   normalize: StringManipulation
   join: StringCollapseSpread
@@ -18,3 +17,4 @@ export interface Path {
   format: (pathObject: FormatInputPathObject) => string;
   parse: (s: string) => ParsedPath
 }
+

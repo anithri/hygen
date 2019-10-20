@@ -20,7 +20,7 @@ export interface CliConfig {
   io: IOConfig
 }
 export interface CliPartial {
-  env?: Partial<EnvironmentConfig>
-  io?: Partial<IOConfig>
+  env: Partial<EnvironmentConfig>
+  io: Partial<IOConfig>
 }
 

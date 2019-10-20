@@ -33,15 +33,15 @@ export const mergeConfig = (stale: Record<string, any>, fresh: Record<string, an
         final[key] = value
       }
       // console.log('mergeConfig', final)
-      // if (final.logger && deeper) {
-      //   const c = {
-      //     stale: Object.keys(stale).length,
-      //     fresh: Object.keys(fresh).length,
-      //     final: Object.keys(final).length,
-      //   }
-      //   final.logger.trace('mergeConfig(stale, fresh, deeper = true) ===', final)
-      //   final.logger.debug(`  results: stale: ${c.stale}, fresh: ${c.fresh}, final: ${c.final} `)
-      // }
+      if (final.logger && deeper) {
+        const c = {
+          stale: Object.keys(stale).length,
+          fresh: Object.keys(fresh).length,
+          final: Object.keys(final).length,
+        }
+        final.logger.debug(`  results: stale: ${c.stale}, fresh: ${c.fresh}, final: ${c.final} `)
+        final.logger.trace('mergeConfig(stale, fresh, deeper = true) ===', final)
+      }
       return final
     },
     startsWith(stale),
