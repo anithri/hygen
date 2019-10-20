@@ -7,7 +7,9 @@
 // @param {object} fresh object to be merged
 // @return {object} result of merge rules on stale and fresh
 
-let startsWith = (stale: Record<string, any>): Record<string, any> => ({...stale})
+let startsWith = (stale: Record<string, any>): Record<string, any> => {
+  return ({ ...stale })
+}
 
 export const mergeConfig = (stale: Record<string, any>, fresh: Record<string, any>, deeper: boolean= true):Record<string, any> =>
   Object.entries(fresh).reduce(

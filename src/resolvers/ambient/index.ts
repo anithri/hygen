@@ -7,7 +7,7 @@ export const ambientResolver: ResolverFn = config =>
     // .then(config => console.log('afterYargs', config) || config)
     .then(loggerResolver)
     .then(config => {
-      console.log('afterLogger', config)
+      console.log('finalAmbient', config)
       return  config
     })
 

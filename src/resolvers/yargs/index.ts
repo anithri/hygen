@@ -21,8 +21,10 @@ export const yargsResolver: ResolverFn = config =>
       .options(loggerOptions)
       .showHidden('verbose', 'show all the help')
       .argv,
-  ).then((yargv: object): HygenConfig => (mergeConfig(config, {
-    yargv,
-    params: yargv,
-  })) as HygenConfig)
-
+  )
+    .then((yargv: object): HygenConfig =>
+      mergeConfig(config, {
+        yargv,
+        params: yargv,
+      }) as unknown as HygenConfig,
+    )
