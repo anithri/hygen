@@ -11,5 +11,7 @@ export const defaults: CliPartial = {
     templatePaths: ['./_templates'],
     hygenIgnorePaths: ['.hygenignore'],
   },
-  io: {},
+  io: {
+    log: (...msg): void => console.log(...msg)
+  },
 }

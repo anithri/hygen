@@ -4,6 +4,7 @@ import { Path } from './global'
 
 export interface IOConfig {
   path: Path
+  log: (...msg: Array<any>) => void
   exec: (action: string, body: any) => string
 }
 

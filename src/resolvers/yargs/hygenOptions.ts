@@ -7,7 +7,6 @@ export const hygenOptions: YargsOptions = {
       default: ['_templates'],
       hidden: true,
       global: true,
-      group: 'Hygen Options',
     },
    hygenignore:  {
       array: true,
@@ -15,7 +14,6 @@ export const hygenOptions: YargsOptions = {
       default: ['.hygenignore'],
       hidden: true,
       global: true,
-      group: 'Hygen Options',
     },
    configFiles:  {
       array: true,
@@ -23,21 +21,18 @@ export const hygenOptions: YargsOptions = {
       default: ['.hygen.js'],
       hidden: true,
       global: true,
-      group: 'Hygen Options',
     },
    configPath:  {
       describe: 'specific config files to load as .hygen.js files',
       default: [],
       hidden: true,
       global: true,
-      group: 'Hygen Options',
     },
    templateFile:  {
       describe: 'files to be loaded from template dir',
       array: true,
       hidden: true,
       global: true,
-      group: 'Hygen Options',
       default: ['index.js', 'params.js', 'help.js'],
     },
    }

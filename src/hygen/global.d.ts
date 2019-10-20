@@ -1,10 +1,12 @@
 import 'jest-extended'
-import {
-  StringArrayCollapse,
-  StringCollapseSpread,
-  StringManipulation,
-} from './utility'
 import { FormatInputPathObject, ParsedPath } from 'path'
+
+export type StringManipulation = (s: string) => string
+export type StringArrayCollapse = (arr: Array<string>) => string
+export type StringCollapseSpread = (...paths: Array<string>) => string
+
+export type StringMap = Record<string,string>
+
 export interface Path {
   normalize: StringManipulation
   join: StringCollapseSpread

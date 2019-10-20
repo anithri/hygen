@@ -1,4 +1,22 @@
+import { StringMap } from './global'
 
-export type StringManipulation = (s: string) => string
-export type StringArrayCollapse = (arr: Array<string>) => string
-export type StringCollapseSpread = (...paths: Array<string>) => string
+export interface LogMap {
+  name: string
+  level: number
+  formatter: LogMessage
+}
+
+export interface ChalkMapping {
+  [S: string]: LogMap
+}
+export declare type LogMessage = (...msg: any[]) => void
+
+export declare interface LogYargs {
+  logLevel?: number
+  silent?: boolean
+  error?: boolean
+  quiet?: boolean
+  warn?: boolean
+  debug?: boolean
+  trace?: boolean
+}
