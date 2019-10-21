@@ -8,9 +8,10 @@ import { mergeConfig } from '../../utils/mergeConfig'
 
 export const yargsResolver: ResolverFn = config =>
   Promise.resolve(
-    yargsParser(config.env.argv).parserConfiguration({
-      'combine-arrays': true,
-    })
+    yargsParser(config.env.argv)
+      .parserConfiguration({
+        'combine-arrays': true,
+      })
       .scriptName('hygen')
       .usage('$0 [global-args] <generator> <action> <name> [args]')
       .version(false)
@@ -19,12 +20,11 @@ export const yargsResolver: ResolverFn = config =>
       .env('HYGEN')
       .options(hygenOptions)
       .options(loggerOptions)
-      .showHidden('verbose', 'show all the help')
-      .argv,
-  )
-    .then((yargv: object): HygenConfig =>
-      mergeConfig(config, {
+      .showHidden('verbose', 'show all the help').argv,
+  ).then(
+    (yargv: object): HygenConfig =>
+      (mergeConfig(config, {
         yargv,
         params: yargv,
-      }) as unknown as HygenConfig,
-    )
+      }) as unknown) as HygenConfig,
+  )

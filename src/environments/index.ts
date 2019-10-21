@@ -1,6 +1,7 @@
 import { CliConfig, CliPartial } from '../hygen'
 import { defaults } from './defaults'
 import { linux } from './linux'
+import {mergeConfig} from '../utils/mergeConfig'
 
 /* The environment contains all of the details of the running environment
  *  including current directory, the default and environment specific paths
@@ -16,8 +17,5 @@ export const environments: {[s: string]: CliPartial} = {
 // environmentFor('/any/absolute/path')
 // environmentsFor({custom: :environment})
 export const environmentFor = (name: string): CliConfig => {
-  return {
-    ...environments.defaults,
-    ...environments[name]
-  } as CliConfig
+  return mergeConfig(defaults, environments[name]) as CliConfig
 }
