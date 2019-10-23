@@ -1,0 +1,5 @@
+hygen [global-args] GENERATOR ACTION [NAME] [param-args]
+
+Options:
+  --dry     Run all steps but do not generate files
+  ----help
