@@ -43,27 +43,53 @@ var defaultCommand = {
     describe: false,
     builder: function (yargs) { return yargs; },
     handler: function (yargv) {
+        console.log('defaultCommandModule', yargv);
     }
 };
 exports.hygenYargs = function (argv) {
-    return (require('yargs/yargs'))(argv)
+    return require('yargs/yargs')(argv)
         .scriptName('hygen')
-        .usage('$0 [global-args] GENERATOR ACTION [NAME] [param-args]')
         .version(false)
         .help('help', 'Show Help')
         .alias('help', 'h')
-        .option('dry', { describe: 'Run all steps but do not generate files' })
-        // .command(defaultCommand)
-        .command('<generator> <action> [name]', 'generate the templates for generator action', function (yargs) {
-        yargs.positional('generator', {
+        .option('dry', {
+        describe: 'Run all steps but do not generate files'
+    })
+        .command(defaultCommand)
+        .command('$0 <generator>', false, function (yargs) {
+        yargs
+            .positional('generator', {
             describe: 'generator (_templates/myGenerator)',
             type: 'string'
-        }).positional('proxy', {
-            describe: 'optional proxy URL',
+        });
+    }, function (yargv) {
+        console.log('No Action', yargv);
+        return yargv;
+    })
+        .command('$0 <generator> <action> [name]', 'generate the templates for generator action', function (yargs) {
+        yargs
+            .positional('generator', {
+            describe: 'generator (_templates/myGenerator)',
+            type: 'string'
+        })
+            .positional('action', {
+            describe: 'action (_templates/myGenerator/myAction)',
+            type: 'string'
+        })
+            .positional('name', {
+            describe: 'name for the generated templates',
             type: 'string'
         });
-    }, function (yargv) { console.log('generator action', yargv); return yargv; })
-        .argv;
+    }, function (yargv) {
+        console.log('generator action', yargv);
+        return yargv;
+    })
+        .fail(function (msg, err, yargs) {
+        console.log(msg);
+        console.log(err);
+        console.log(yargs.help());
+        console.log('===> actionsAvailable <===');
+    }).argv;
 };
 console.log(exports.hygenYargs(process.argv.slice(2)));
 var walk = require('ignore-walk');
@@ -77,16 +103,22 @@ exports.availableActions = function () { return __awaiter(void 0, void 0, void 0
                     actions[generator][action] = true;
                     return actions;
                 }, {}); })
-                    .then(function (f) { console.log('actions', f); return f; })
+                    // .then(f => {console.log('actions', f); return f})
                     .then(function (generators) {
                     return Object.entries(generators).map(function (_a) {
                         var generator = _a[0], actions = _a[1];
                         return generator + ": " + Object.keys(actions).sort().join(', ');
                     });
                 })
-                    .then(function (f) { console.log('generators', f); return f; })];
-            case 1: return [2 /*return*/, _a.sent()];
+                // .then(f => {console.log('generators', f); return f})
+                // console.log(availableActions())
+            ];
+            case 1: return [2 /*return*/, _a.sent()
+                // .then(f => {console.log('generators', f); return f})
+                // console.log(availableActions())
+            ];
         }
     });
 }); };
-console.log(exports.availableActions());
+// .then(f => {console.log('generators', f); return f})
+// console.log(availableActions())
