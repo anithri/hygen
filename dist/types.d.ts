@@ -1,3 +1,4 @@
+import { Argv } from "yargs";
 export interface Logger {
     ok: (msg: string) => void;
     notice: (msg: string) => void;
@@ -38,3 +39,4 @@ export interface RunnerResult {
         availableActions: string[];
     };
 }
+export declare type YargsFailFn = (msg: string, err: Error, ygs: Argv) => any;
